@@ -11,9 +11,16 @@ const fakeBooks : Book[] = [
 
 @Injectable()
 export class LibraryService {
+
   getBooks(list : string) : Promise< Book[] > {
     return new Promise(function(resolve, reject) {
       window.setTimeout(() => resolve(fakeBooks), 500)
+    })
+  }
+
+  getBook(id : number) : Promise< Book > {
+    return new Promise(function(resolve, reject) {
+      window.setTimeout(() => resolve(fakeBooks[id-1]), 300)
     })
   }
 }

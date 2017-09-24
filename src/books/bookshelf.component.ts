@@ -8,11 +8,10 @@ import { LibraryService } from './library.service';
   selector: 'bookshelf',
   template: `
     <div ngClass='bookshelf'>
-      <h1 ngClass='title'> {{this.title}} </h1>
+      <h1 ngClass='title'> {{title}} </h1>
       <book-link *ngFor="let b of books" [book]="b"></book-link>
     </div>
-  `,
-  providers: [ LibraryService ]
+  `
 })
 
 export class BookshelfComponent implements OnInit {

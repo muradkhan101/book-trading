@@ -1,31 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
-import { BookshelfComponent } from './bookshelf.component';
-import { BookInfoComponent } from './book-info.component';
-import { LibraryService } from './library.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-const appRoutes: Routes = [
-  {path: 'books/?:id', component: BookInfoComponent},
-  {path: 'books', component: BookshelfComponent},
-  {path: '', redirectTo: 'books'}
-]
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+import { BooksModule } from '../books/books.module';
+import { UserInfoComponent } from '../user/user-info.component';
+import { UserInfoService } from '../user/user-info.service';
 
 @NgModule({
   declarations: [
-    BookshelfComponent,
-    BookInfoComponent
+    AppComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(
-      appRoutes,
-      {enableTracing: true}
-    )
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    BooksModule,
+    AppRoutingModule
   ],
-  providers: [LibraryService],
-  bootstrap: [BookshelfComponent]
+  providers: [UserInfoService],
+  bootstrap: [AppComponent]
 })
 
 export class AppModule {}

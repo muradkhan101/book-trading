@@ -8,18 +8,18 @@ import { UserInfoService } from './user-info.service';
   template: `
     <div ngClass='user-info'>
       <h1 class='title'>User Profile</h1>
-      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="onSubmit()">
         <div>
           <label>Username: </label>
           <input *ngIf="editing" type="text" formControlName="name">
-          <p *ngIf="!editing"></p>
+          <p *ngIf="!editing">{{this.userForm.value.name || ''}}</p>
         </div>
         <div>
           <label>E-mail: </label>
           <input *ngIf="editing" type="email" formControlName="email">
-          <p *ngIf="!editing"></p>
+          <p *ngIf="!editing">{{this.userForm.value.email || ''}}</p>
         </div>
-        <button type="alt" (ngClick)="editing=!editing">Edit / Cancel</button>
+        <button type="alt" (click)="editing=!editing">Edit / Cancel</button>
         <button *ngIf="editing" type="submit" [disabled]="!userForm.valid">Submit</button>
       </form>
     </div>
