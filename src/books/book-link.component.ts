@@ -1,3 +1,4 @@
+// Input lets parent components pass values down to children (like props in React)
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Book } from './book';

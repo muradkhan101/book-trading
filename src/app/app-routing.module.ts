@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+//Routes is an object linking paths to components, or redirecting placing
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';

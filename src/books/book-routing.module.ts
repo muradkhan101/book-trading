@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BookInfoComponent } from './book-info.component';
 import { BookshelfComponent } from './bookshelf.component';
 
-const bookRoutes = [
+const bookRoutes : Routes = [
   {path: 'books/:id', component: BookInfoComponent},
   {path: 'books', component: BookshelfComponent, data:{ title: "List of Books"}},
 ]

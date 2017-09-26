@@ -1,5 +1,10 @@
+// HostBinding binds certain style, attributes, etc to given item
+// OnInit -> componentDidMount, OnDestroy -> componentWillUnmount
 import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
+// ActivatedRoute is an observable of each navigation. Has info about current path, last path, nav path
+// ParamMap makes it easier to work with things with multiple keys/parameters
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+// SwitchMap flattens the paramMap into an easier to work with ParamMap (yes the difference is the capital)
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 
