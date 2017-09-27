@@ -7,9 +7,11 @@ import { LibraryService } from './library.service';
 @Component({
   selector: 'bookshelf',
   template: `
-    <div ngClass='bookshelf'>
-      <h1 ngClass='title'> {{title}} </h1>
-      <book-link *ngFor="let b of books" [book]="b"></book-link>
+    <div ngClass='card container'>
+      <h1 ngClass='card-title'> {{title}} </h1>
+      <div ngClass='row'>
+        <book-link *ngFor="let b of books" [book]="b"></book-link>
+      </div>
     </div>
   `
 })

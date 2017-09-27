@@ -8,7 +8,7 @@ export class AlertService {
   private subject = new Subject<any>();
   private keepNavForChange = false;
 
-  constructor(router: Router) {
+  constructor(private router: Router) {
     router.events.subscribe(event => {
       // If we're about to navigate to another page
       if (event instanceof NavigationStart) {

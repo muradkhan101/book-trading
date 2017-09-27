@@ -16,16 +16,22 @@ import { LibraryService } from './library.service';
 @Component({
   selector: 'book-info',
   template: `
-    <div ngClass='book-display' *ngIf="book$ | async as book">
-        <div ngClass='bootstraprowclass'>
-          <img [src]="book.img" ngClass='book-cover'>
-          <div ngClass="book-info">
-            <h1 ngClass='title'>{{book.title}}</h1>
-            <p ngClass='description'>{{book.description}}</p>
-          </div>
+  <div ngClass='book-display container' *ngIf="book$ | async as book">
+    <div ngClass='row justify-content-center'>
+      <div ngClass='col-3'>
+        <img [src]="book.img" ngClass='book-cover'>
+      </div>
+      <div ngClass='col'>
+        <div ngClass="card bg-light">
+          <h1 ngClass='card-title'>{{book.title}}</h1>
+          <p ngClass='card-text'>{{book.description}}</p>
         </div>
+      </div>
+    </div>
+    <div ngClass='row'>
       <bookshelf title="Trade For This" [list]="'books/'+book.id"></bookshelf>
     </div>
+  </div>
 `,
 styles: [`
   book-cover { width: 100px; height: 100px;}

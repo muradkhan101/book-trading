@@ -9,9 +9,9 @@ import { AlertService } from './alert.service';
 export class AlertComponent {
   message: any;
 
-  contructor(private alertService : AlertService) {}
+  constructor(private alertService : AlertService) {}
 
   ngOnInit() {
-    this.alertService.getMessage().subscribe(message => {this.message = message})
+    this.alertService.retrieveMessage().subscribe(message => {this.message = message})
   }
 }
