@@ -7,7 +7,7 @@ import { UserInfoService } from '../user/user-info.service';
 @Component({
   selector: 'book-link',
   template: `
-  <div ngClass='col-6 col-md-3'>
+  <div ngClass='col-6 col-md-3 mb-15'>
     <a [routerLink]="['/books', book.id]">
       <div ngClass="book-cover" [ngStyle]="{'background-image': 'url(https://source.unsplash.com/featured)' }">
       </div>

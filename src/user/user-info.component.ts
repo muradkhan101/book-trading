@@ -29,15 +29,13 @@ import { matchInput } from '../assets/password-validation';
                 <input *ngIf="editing" ngClass='form-control' type="email" formControlName="email">
                 <p *ngIf="!editing">{{this.userForm.value.email || ''}}</p>
               </div>
-              <div ngClass='form-group'>
+              <div *ngIf="editing" ngClass='form-group'>
                 <label ngClass="form-control-label">Password</label>
                 <input *ngIf="editing" ngClass='form-control' type="password" formControlName="password">
-                <p *ngIf="!editing">{{this.userForm.value.password || ''}}</p>
               </div>
-              <div ngClass='form-group'>
+              <div *ngIf="editing" ngClass='form-group'>
                 <label ngClass="form-control-label">Validate password</label>
                 <input *ngIf="editing" ngClass='form-control' type="password" formControlName="validatePassword">
-                <p *ngIf="!editing">{{this.userForm.value.validatePassword || ''}}</p>
               </div>
               <button ngClass='btn btn-secondary' type="alt" (click)="editing=!editing">{{editing ? 'Cancel' : 'Edit'}}</button>
               <button ngClass='btn btn-primary'*ngIf="editing" type="submit" [disabled]="!userForm.valid">Submit</button>
