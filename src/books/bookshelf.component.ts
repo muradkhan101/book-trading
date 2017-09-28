@@ -7,7 +7,7 @@ import { LibraryService } from './library.service';
 @Component({
   selector: 'bookshelf',
   template: `
-    <div ngClass='card container'>
+    <div ngClass='card container-fluid'>
       <h1 ngClass='card-title'> {{title}} </h1>
       <div ngClass='row'>
         <book-link *ngFor="let b of books" [book]="b"></book-link>
