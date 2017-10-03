@@ -10,6 +10,12 @@ import { AppComponent } from './app.component';
 import { BooksModule } from '../books/books.module';
 import { UserInfoComponent } from '../user/user-info.component';
 import { UserInfoService } from '../user/user-info.service';
+import { UserAuthenticationService } from '../user/user-authentication.service';
+
+import { LoginModule } from '../login/login.module';
+
+import { HttpModule } from '@angular/http';
+
 
 @NgModule({
   declarations: [
@@ -21,9 +27,11 @@ import { UserInfoService } from '../user/user-info.service';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     BooksModule,
-    AppRoutingModule
+    LoginModule,
+    AppRoutingModule,
+    HttpModule
   ],
-  providers: [UserInfoService],
+  providers: [UserInfoService, UserAuthenticationService],
   bootstrap: [AppComponent]
 })
 

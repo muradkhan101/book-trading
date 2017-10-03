@@ -11,24 +11,24 @@ export class UserManagementService {
 
   private headers = new Headers({'Content-Type': 'application/json, */*'})
 
-  create(user : User ) {
-    return this.http.post(`${this.baseURL}/user`, user, this.headers)
-            .map((response : Response) => response.json())
+  create(userInfo) {
+    return this.http.post(`${this.baseURL}/user`, userInfo, this.headers)
+            .subscribe((response : Response) => response.json())
   }
 
-  update(user : User ) {
-    return this.http.put(`${this.baseURL}/user`, user, this.headers)
-            .map((response : Response) => response.json())
+  update(userInfo) {
+    return this.http.put(`${this.baseURL}/user`, userInfo, this.headers)
+            .subscribe((response : Response) => response.json())
   }
 
-  delete(user : User ) {
-    return this.http.delete(`${this.baseURL}/user/${user.id}`, this.headers)
-            .map((response : Response) => response.json())
+  delete(userInfo) {
+    return this.http.delete(`${this.baseURL}/user/${userInfo.id}`, this.headers)
+            .subscribe((response : Response) => response.json())
   }
 
-  get(user : User ) {
-    return this.http.get(`${this.baseURL}/user/${user.id}`, this.headers)
-            .map((response : Response) => response.json())
+  get(userInfo) {
+    return this.http.get(`${this.baseURL}/user/${userInfo.id}`, this.headers)
+            .subscribe((response : Response) => response.json())
   }
 
   private jwt() {

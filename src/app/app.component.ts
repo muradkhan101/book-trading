@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-main',
   template: `
   <div ngClass='container-fluid no-padding'>
-    <div ngClass='row align-items-center'>
+    <div ngClass='full-height row align-items-center'>
       <div ngClass='col-md-3'>
         <nav ngClass='navbar navbar-toggleable-md navbar-expand-md navbar-light bg-light'>
           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
           <div ngClass='collapse navbar-collapse flex-column mr-auto ml-auto' id='main-navbar'>
             <a ngClass='nav-item nav-link'routerLink='/books' routerLinkActive='active'>Books</a>
             <a ngClass='nav-item nav-link' routerLink='/trades' routerLinkActive='active'>Trades</a>
-            <a ngClass='nav-item nav-link' routerLink='/user/profile' routerLinkActive='active'>Log-in</a>
+            <a ngClass='nav-item nav-link' routerLink='/login' routerLinkActive='active'>Log-in</a>
           </div>
         </nav>
       </div>

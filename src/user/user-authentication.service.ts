@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
+import 'rxjs/Rx';
 
 import { User } from './user';
 
 @Injectable()
 export class UserAuthenticationService {
-  baseURL : string = 'someurl';
+  baseURL : string = 'http://localhost:3000';
 
   constructor (private http: Http) {}
 
-  login(email : String, password : String) {
-    return this.http.post(`this.baseURL/user/authenticate`, JSON.stringify({email, password}))
-      .map((response: Response) => {
+  login(loginCredentials) {
+    return this.http.post(`${this.baseURL}/user/authenticate`, JSON.stringify(loginCredentials))
+      .subscribe((response: Response) => {
         let user = response.json();
         if (user && user.token) {
           localStorage.setItem('currentUser', JSON.stringify(user))
