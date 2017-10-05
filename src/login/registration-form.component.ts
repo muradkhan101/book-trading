@@ -10,7 +10,7 @@ import { UserManagementService } from '../user/user-management.service';
     <div ngClass='row justify-content-center align-items-center'>
       <div ngClass='user-info container'>
         <div ngClass='row'>
-          <div ngClass='col-6 col-lg-4 card'>
+          <div ngClass='no-padding col-6 col-lg-4 card'>
             <h1 ngClass='card-header'>Register for an Account</h1>
             <div ngClass='card-body'>
               <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
@@ -34,7 +34,7 @@ import { UserManagementService } from '../user/user-management.service';
                 <label ngClass="form-control-label">Validate password</label>
                 <input ngClass='form-control' type="password" formControlName="validatePassword">
               </div>
-              <button type="submit" ngClass="btn btn-primary submit" [disabled]="!loginForm.valid">Register</button>
+              <button type="submit" ngClass="btn btn-primary submit" [disabled]="!registrationForm.valid">Register</button>
               </form>
             </div>
           </div>
@@ -49,7 +49,7 @@ export class RegistrationFormComponent {
   registrationForm : FormGroup;
   formData : Object;
 
-  constructor(private fb : FormBuilder, private userManage : UserManagementService ) {}
+  constructor(private fb : FormBuilder, private manageUser : UserManagementService ) {this.createForm();}
 
   createForm() {
     this.registrationForm = this.fb.group({
@@ -66,6 +66,6 @@ export class RegistrationFormComponent {
   }
 
   onSubmit() {
-
+    this.manageUser.create(this.formData);
   }
 }
