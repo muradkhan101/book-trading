@@ -2,13 +2,17 @@ import { NgModule } from '@angular/core';
 //Routes is an object linking paths to components, or redirecting placing
 import { Routes, RouterModule } from '@angular/router';
 
-import { AppComponent } from './app.component';
+import { AppLandingComponent } from './app-landing.component';
 import { UserInfoComponent } from '../user/user-info.component';
-import { LoginFormComponent } from '../login/login-form.component';
+import { AuthGuard } from '../global_services/auth-guard.service';
 
 const appRoutes: Routes = [
-  {path: 'user/profile', component: LoginFormComponent },
-  {path: '', component: AppComponent, pathMatch: 'full'}
+  {
+    path: 'user/profile',
+    component: UserInfoComponent,
+    canActivate : [AuthGuard],
+  },
+  {path: '', component: AppLandingComponent, pathMatch: 'full'}
 ]
 
 @NgModule({

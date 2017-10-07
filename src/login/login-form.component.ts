@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserAuthenticationService } from '../user/user-authentication.service';
+import { UserAuthenticationService } from '../global_services/user-authentication.service';
 
 @Component({
   selector: 'login-page',

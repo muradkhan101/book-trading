@@ -6,13 +6,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppLandingComponent } from './app-landing.component';
 
 import { BooksModule } from '../books/books.module';
 import { UserInfoComponent } from '../user/user-info.component';
 import { UserInfoService } from '../user/user-info.service';
-import { UserAuthenticationService } from '../user/user-authentication.service';
+import { UserAuthenticationService } from '../global_services/user-authentication.service';
 
 import { LoginModule } from '../login/login.module';
+import { AuthGuard } from '../global_services/auth-guard.service';
 
 import { HttpModule } from '@angular/http';
 
@@ -20,19 +22,20 @@ import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     AppComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    AppLandingComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    BooksModule,
+    BooksModule, // Order of import matters here, load base routes last since routes take precedence by ordering
     LoginModule,
     AppRoutingModule,
     HttpModule
   ],
-  providers: [UserInfoService, UserAuthenticationService],
-  bootstrap: [AppComponent]
+  providers: [ UserInfoService, UserAuthenticationService ],
+  bootstrap: [ AppComponent ]
 })
 
 export class AppModule {}

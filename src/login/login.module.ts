@@ -6,7 +6,7 @@ import { LoginFormComponent } from './login-form.component';
 import { LoginRoutingModule } from './login-routing.module';
 import { UserManagementService } from '../user/user-management.service';
 import { RegistrationFormComponent } from './registration-form.component';
-import { UserAuthenticationService } from '../user/user-authentication.service';
+import { UserAuthenticationService } from '../global_services/user-authentication.service';
 
 @NgModule({
   imports : [
