@@ -10,7 +10,7 @@ const appRoutes: Routes = [
   {
     path: 'user/profile',
     component: UserInfoComponent,
-    canActivate : [AuthGuard],
+    canActivate : [AuthGuard]
   },
   {path: '', component: AppLandingComponent, pathMatch: 'full'}
 ]

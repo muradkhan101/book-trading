@@ -11,8 +11,8 @@ import { AppLandingComponent } from './app-landing.component';
 import { BooksModule } from '../books/books.module';
 import { UserInfoComponent } from '../user/user-info.component';
 import { UserInfoService } from '../user/user-info.service';
-import { UserAuthenticationService } from '../global_services/user-authentication.service';
 
+import { UserAuthenticationService } from '../global_services/user-authentication.service';
 import { LoginModule } from '../login/login.module';
 import { AuthGuard } from '../global_services/auth-guard.service';
 
@@ -34,7 +34,11 @@ import { HttpModule } from '@angular/http';
     AppRoutingModule,
     HttpModule
   ],
-  providers: [ UserInfoService, UserAuthenticationService ],
+  providers: [
+    UserInfoService,
+    UserAuthenticationService,
+    AuthGuard
+ ],
   bootstrap: [ AppComponent ]
 })
 

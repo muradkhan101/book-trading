@@ -45,8 +45,7 @@ import { matchInput } from '../assets/password-validation';
       </div>
     </div>
   </div>
-  `,
-  providers: [UserInfoService]
+  `
 })
 
 export class UserInfoComponent {

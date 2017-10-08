@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { matchInput } from '../assets/password-validation';
 import { UserManagementService } from '../user/user-management.service';
+import { AlertService } from '../alert/alert.service';
 
 @Component({
   selector: 'registration-form',

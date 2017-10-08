@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserAuthenticationService } from '../global_services/user-authentication.service';
-
+import { AlertService } from '../alert/alert.service';
 @Component({
   selector: 'login-page',
   template: `
@@ -12,6 +12,7 @@ import { UserAuthenticationService } from '../global_services/user-authenticatio
           <div ngClass='no-padding col-6 col-lg-4 card'>
             <h1 ngClass='card-header'>Login</h1>
             <div ngClass='card-body'>
+              <alert></alert>
               <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
               <div ngClass='form-group'>
                 <label ngClass='col-form-label'> Email </label>
@@ -37,8 +38,9 @@ import { UserAuthenticationService } from '../global_services/user-authenticatio
 export class LoginFormComponent {
   loginForm : FormGroup;
   formData;
+  message;
   // Remember to declare these injections as private or no access with this
-  constructor(private fb : FormBuilder, private userAuth : UserAuthenticationService) { }
+  constructor(private fb : FormBuilder, private userAuth : UserAuthenticationService, private alert : AlertService) { }
 
   createForm() {
     this.loginForm = this.fb.group({
@@ -54,5 +56,8 @@ export class LoginFormComponent {
 
   onSubmit() {
     this.userAuth.login(this.formData);
+    console.log(this.alert.retrieveMessage())
+    this.alert.retrieveMessage()
+      .subscribe(message => {this.message = message; console.log(message)});
   }
 }

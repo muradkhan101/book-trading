@@ -25,12 +25,12 @@ export class AlertService {
 
   success(message : string, keepNavForChange = false) {
     this.keepNavForChange = keepNavForChange;
-    this.subject.next({type: 'success', message: message})
+    this.subject.next({type: 'success', text: message})
   }
 
   error(message : string, keepNavForChange = false) {
     this.keepNavForChange = keepNavForChange;
-    this.subject.next({type: 'error', message: message})
+    this.subject.next({type: 'error', text: message})
   }
   retrieveMessage() : Observable<any> {
     return this.subject.asObservable();

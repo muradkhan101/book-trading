@@ -8,6 +8,9 @@ import { UserManagementService } from '../user/user-management.service';
 import { RegistrationFormComponent } from './registration-form.component';
 import { UserAuthenticationService } from '../global_services/user-authentication.service';
 
+import { AlertService } from '../alert/alert.service';
+import { AlertComponent } from '../alert/alert.component';
+
 @NgModule({
   imports : [
     LoginRoutingModule,
@@ -16,11 +19,13 @@ import { UserAuthenticationService } from '../global_services/user-authenticatio
   ],
   declarations : [
     LoginFormComponent,
-    RegistrationFormComponent
+    RegistrationFormComponent,
+    AlertComponent
   ],
   providers : [
     UserAuthenticationService,
-    UserManagementService
+    UserManagementService,
+    AlertService
   ]
 })
 
