@@ -63,10 +63,12 @@ export class RegistrationFormComponent {
   }
 
   ngOnInit() {
-    this.registrationForm.valueChanges.subscribe( value => {this.formData = value;})
+    this.registrationForm.valueChanges.subscribe( value => this.formData = value)
   }
 
   onSubmit() {
-    this.manageUser.create(this.formData);
+    let data = Object.assign({}, this.formData);
+    delete data['validatePassword'];
+    this.manageUser.create(data);
   }
 }

@@ -9,7 +9,6 @@ import { User } from './user';
 export class UserManagementService {
   constructor (private http : Http) {}
 
-
   private headers = new Headers({'Content-Type': 'application/json, */*'})
 
   create(userInfo) {

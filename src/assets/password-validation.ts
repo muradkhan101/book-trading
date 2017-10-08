@@ -15,9 +15,7 @@ export function matchInput(otherInput : string) {
         mainControl.updateValueAndValidity();
       })
     }
-
     if (!otherControl) return null;
-
     if (otherControl.value !== mainControl.value) return {match: "Whoops! Your passwords don't match!"}
 
     return null;

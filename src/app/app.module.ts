@@ -10,7 +10,6 @@ import { AppLandingComponent } from './app-landing.component';
 
 import { BooksModule } from '../books/books.module';
 import { UserInfoComponent } from '../user/user-info.component';
-import { UserInfoService } from '../user/user-info.service';
 
 import { UserAuthenticationService } from '../global_services/user-authentication.service';
 import { LoginModule } from '../login/login.module';
@@ -35,7 +34,6 @@ import { HttpModule } from '@angular/http';
     HttpModule
   ],
   providers: [
-    UserInfoService,
     UserAuthenticationService,
     AuthGuard
  ],

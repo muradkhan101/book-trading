@@ -56,8 +56,8 @@ export class LoginFormComponent {
 
   onSubmit() {
     this.userAuth.login(this.formData);
-    console.log(this.alert.retrieveMessage())
     this.alert.retrieveMessage()
-      .subscribe(message => {this.message = message; console.log(message)});
+      .subscribe(message => this.message = message);
   }
+
 }

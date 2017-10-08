@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from './user';
-import { UserInfoService } from './user-info.service';
 import { matchInput } from '../assets/password-validation';
+import { UserAuthenticationService } from '../global_services/user-authentication.service';
+import { UserManagementService } from './user-management.service';
 
 @Component ({
   selector: 'user-info',
@@ -39,6 +40,7 @@ import { matchInput } from '../assets/password-validation';
               </div>
               <button ngClass='btn btn-secondary' type="alt" (click)="editing=!editing">{{editing ? 'Cancel' : 'Edit'}}</button>
               <button ngClass='btn btn-primary'*ngIf="editing" type="submit" [disabled]="!userForm.valid">Submit</button>
+              <button ngClass='btn btn-danger float-right' type="danger" (click)="userAuth.logout()">Log-out</button>
             </form>
           </div>
         </div>
@@ -50,29 +52,32 @@ import { matchInput } from '../assets/password-validation';
 
 export class UserInfoComponent {
   editing : boolean = false;
-  user : User;
   userForm : FormGroup;
+  formData : Object;
 
-  constructor(private userInfoService : UserInfoService, private fb : FormBuilder) { }
+  constructor(private userManagement : UserManagementService, private fb : FormBuilder, private userAuth : UserAuthenticationService) { }
 
-  createForm() : void {
+  createForm(user) : void {
     this.userForm = this.fb.group({
-      firstName: [this.user.firstName || '', Validators.required],
-      lastName: [this.user.lastName || '', Validators.required],
-      email: [this.user.email || '', [Validators.required, Validators.email]],
-      password: [this.user.password || '', Validators.required],
-      validatePassword: [this.user.password || '', [Validators.required, matchInput('password')]]
+      firstName: [user.firstName || '', Validators.required],
+      lastName: [user.lastName || '', Validators.required],
+      email: [user.email || '', [Validators.required, Validators.email]],
+      password: [user.password || ''],
+      validatePassword: [user.password || '', [matchInput('password')]]
     })
   }
 
   ngOnInit() {
-    this.userInfoService.getUser('1').then(user => {
-      this.user = user;
-      this.createForm();
-    })
+    let user = JSON.parse(localStorage.getItem('currentUser'));
+    this.createForm(user);
+    this.userForm.valueChanges.subscribe(value => this.formData = value);
   }
 
   onSubmit() {
-    //if (this.userForm.valid) doAJAX('endpoint', this.userForm.value, function(){})
+    let data = Object.assign({}, this.formData);
+    if (!data['password']) delete data['password'];
+    delete data['validatePassword'];
+    data['uuid'] = JSON.parse(localStorage.getItem('currentUser'))['uuid'];
+    this.userManagement.update(data);
   }
 }
