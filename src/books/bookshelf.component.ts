@@ -22,6 +22,6 @@ export class BookshelfComponent implements OnInit {
   @Input() list : string;
   constructor(private libraryService : LibraryService) {}
   ngOnInit() : void {
-    this.libraryService.getBooks(this.list).then(b => this.books = b)
+    this.libraryService.getBooks(this.list).subscribe(b => this.books = b)
   }
 }

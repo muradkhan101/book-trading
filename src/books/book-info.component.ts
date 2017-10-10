@@ -19,7 +19,7 @@ import { LibraryService } from './library.service';
   <div ngClass='book-display container' *ngIf="book$ | async as book">
     <div ngClass='row justify-content-center'>
       <div ngClass='col-3'>
-        <img [src]="book.img" ngClass='book-cover'>
+        <img [src]="book.image" ngClass='book-cover'>
       </div>
       <div ngClass='col'>
         <div ngClass="card bg-light">
@@ -54,7 +54,8 @@ export class BookInfoComponent implements OnInit {
 
   ngOnInit() {
     this.book$ = this.route.paramMap
-      .switchMap((params : ParamMap) =>{
-        return this.libraryService.getBook(+params.get('id'))})
+      .switchMap((params : ParamMap) => {
+        return this.libraryService.getBook(+params.get('id'))
+      })
   }
 }

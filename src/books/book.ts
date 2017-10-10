@@ -1,11 +1,18 @@
 export class Book {
-  private id : number;
+  private id : string;
   public title : string;
   public description : string;
-  public img : string;
-  constructor(id : number, title : string, desc : string) {
+  public image : string;
+  public uuid : string;
+  public published : string;
+  public author : string;
+  constructor(obj, id) {
     this.id = id;
-    this.title = title;
-    this.description = desc;
+    this.title = obj.title;
+    this.description = obj.description;
+    this.image = obj.image;
+    this.uuid = obj.uuid;
+    this.published = obj.published;
+    this.author = obj.author;
   }
 }

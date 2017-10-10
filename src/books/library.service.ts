@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
-
+import { Http, Response, Headers } from '@angular/http';
 import { Book } from './book';
-
-const fakeBooks : Book[] = [
-  new Book(1, 'Tale of Three Ditties', 'A book about the creation of three of the world\'s most loved songs'),
-  new Book(2, 'Of Lice in Den', 'A heart-wrenching story about how a lice infestation destroyed a bear\'s life'),
-  new Book(3, 'Ride and Prejudice', 'Amusement park goers judge eachother for the types of rides each enjoys'),
-  new Book(4, 'Drank and Fine', 'An alcoholic doesn\'t see how her drinking is causing her to destroy her relationships and push her friends away')
-];
+import { Observable } from 'rxjs';
+import * as Constants from '../assets/config';
 
 @Injectable()
 export class LibraryService {
-
-  getBooks(list : string) : Promise< Book[] > {
-    return new Promise(function(resolve, reject) {
-      window.setTimeout(() => resolve(fakeBooks), 500)
+  constructor(private http: Http) {}
+  bookList : Object = {};
+  lastList : string;
+  getBooks(list : string = '') {
+    this.lastList = list || 'main';
+    if (this.bookList[list || 'main']) return Observable.create( obs => {
+      obs.next(this.bookList[list || 'main']);
     })
+    return this.http.get(`${Constants.baseURL}/books/${list}`, Constants.headers)
+      .map((response : Response) => {
+        this.bookList[list || 'main'] = response.json().map((e, i) => new Book(e, i));
+        return this.bookList[list || 'main'];
+      })
   }
-
-  getBook(id : number) : Promise< Book > {
-    return new Promise(function(resolve, reject) {
-      window.setTimeout(() => resolve(fakeBooks[id-1]), 300)
-    })
+  getBook(id : number) : Observable<Book> {
+    return Observable.create( obs => obs.next(this.bookList[this.lastList][id]));
   }
 }
