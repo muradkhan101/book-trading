@@ -20,6 +20,8 @@ import { LibraryService } from './library.service';
     <div ngClass='row justify-content-center'>
       <div ngClass='col-3'>
         <img [src]="book.image" ngClass='book-cover'>
+        <button ngClass="btn btn-primary mt-5">Add to Collection</button>
+        <button ngClass="btn btn-alt mt-5">Trade This</button>
       </div>
       <div ngClass='col'>
         <div ngClass="card bg-light">
@@ -29,7 +31,7 @@ import { LibraryService } from './library.service';
       </div>
     </div>
     <div ngClass='row'>
-      <bookshelf title="Trade For This" [list]="'books/'+book.id"></bookshelf>
+      <bookshelf title="Trade For This" [list]="book.id+'/trades'"></bookshelf>
     </div>
   </div>
 `,
@@ -55,7 +57,7 @@ export class BookInfoComponent implements OnInit {
   ngOnInit() {
     this.book$ = this.route.paramMap
       .switchMap((params : ParamMap) => {
-        return this.libraryService.getBook(+params.get('id'))
+        return (this.book$ = this.libraryService.getBook(params.get('uuid')))
       })
   }
 }

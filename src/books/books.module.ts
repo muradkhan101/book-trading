@@ -7,6 +7,8 @@ import { BookLinkComponent } from './book-link.component';
 import { BookRoutingModule } from './book-routing.module';
 import { LibraryService } from './library.service';
 
+import { KeysPipe } from '../assets/keys.pipe';
+
 @NgModule({
   imports: [
     BookRoutingModule,
@@ -15,7 +17,8 @@ import { LibraryService } from './library.service';
   declarations: [
     BookshelfComponent,
     BookLinkComponent,
-    BookInfoComponent
+    BookInfoComponent,
+    KeysPipe
   ],
   providers: [
     LibraryService

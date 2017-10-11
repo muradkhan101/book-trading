@@ -5,7 +5,7 @@ import { BookInfoComponent } from './book-info.component';
 import { BookshelfComponent } from './bookshelf.component';
 
 const bookRoutes : Routes = [
-  {path: 'books/:id', component: BookInfoComponent},
+  {path: 'books/:uuid', component: BookInfoComponent},
   {path: 'books', component: BookshelfComponent, data:{ title: "List of Books"}},
 ]
 

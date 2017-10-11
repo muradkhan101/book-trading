@@ -9,8 +9,8 @@ import { LibraryService } from './library.service';
   template: `
     <div ngClass='card container-fluid'>
       <h1 ngClass='card-title'> {{title}} </h1>
-      <div ngClass='row'>
-        <book-link *ngFor="let b of books" [book]="b"></book-link>
+      <div *ngIf="books" ngClass='row'>
+        <book-link *ngFor="let b of (books | keys)" [book]="b"></book-link>
       </div>
     </div>
   `
