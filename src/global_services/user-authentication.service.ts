@@ -10,9 +10,9 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserAuthenticationService {
-  constructor (private http: Http, private alert: AlertService, private router: Router) {}
+  constructor (public http: Http, public alert: AlertService, public router: Router) {}
 
-  redirectUrl : String;
+  static redirectUrl : String;
 
   login(loginCredentials) {
     return this.http.post(`${Constants.baseURL}/user/login`, loginCredentials, this.jwt())
@@ -27,9 +27,9 @@ export class UserAuthenticationService {
         if (user && user.token) {
           localStorage.setItem('currentUser', JSON.stringify(user))
           this.alert.success('Log-in successful!');
-          if (this.redirectUrl) {
-            this.router.navigate([this.redirectUrl]);
-            this.redirectUrl = undefined;
+          if (UserAuthenticationService.redirectUrl) {
+            this.router.navigate([UserAuthenticationService.redirectUrl]);
+            UserAuthenticationService.redirectUrl = undefined;
           }
           return true;
         }
@@ -48,7 +48,7 @@ export class UserAuthenticationService {
     return false;
   }
 
-  private jwt() {
+  jwt() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser && currentUser.token) {
         let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token, 'Content-Type': 'application/json, */*'});

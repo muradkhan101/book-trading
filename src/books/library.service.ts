@@ -8,18 +8,21 @@ import * as Constants from '../assets/config';
 export class LibraryService {
   constructor(private http: Http) {}
   bookList : Object = {};
-  getBooks(list : string) {
-    if (Object.keys(this.bookList).length) return Observable.create( obs => {
-      obs.next(this.bookList);
+
+  getBooks(list: string) {
+    let l = list || '';
+    if (this.bookList[list || 'main']) return Observable.create( obs => {
+      obs.next(this.bookList[list || 'main']);
     })
-    return this.http.get(`${Constants.baseURL}/books/${list || ''}`, Constants.headers)
+    return this.http.get(`${Constants.baseURL}/books/${l}`, Constants.headers)
       .map((response : Response) => {
-        response.json().map( e => this.bookList[e.uuid] = new Book(e));
-        return this.bookList;
+        this.bookList[list || 'main'] = {};
+        response.json().map( e => this.bookList[list || 'main'][e.uuid] = new Book(e));
+        return this.bookList[list || 'main'];
       })
   }
   getBook(uuid : string) : Observable<Book> {
-    console.log(uuid);
-    return Observable.create( obs => obs.next(this.bookList[uuid]));
+    if (!this.bookList['main']) return this.getBooks('').map(books => books[uuid]);
+    return Observable.create( obs => obs.next(this.bookList['main'][uuid]));
   }
 }
