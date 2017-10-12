@@ -16,11 +16,12 @@ import { LibraryService } from './library.service';
 @Component({
   selector: 'book-info',
   template: `
+  <trade-modal *ngIf="book$ | async as book" [preSelectedBook]="book.uuid" [books]="libraryService.getBooks('')"></trade-modal>
   <div ngClass='book-display container' *ngIf="book$ | async as book">
     <div ngClass='row justify-content-center'>
       <div ngClass='col-3'>
         <img [src]="book.image" ngClass='book-cover'>
-        <button ngClass="btn btn-primary mt-2" (click)="addToCollection(book.uuid)">Add to Collection</button>
+        <button ngClass="btn btn-primary mt-2" (click)="addToCollection(book.uuid)" data-toggle="modal" data-target="#trade-modal">Add to Collection</button>
         <button ngClass="btn btn-alt mt-2 mb-2" (click)="showModal()">Trade This</button>
       </div>
       <div ngClass='col'>

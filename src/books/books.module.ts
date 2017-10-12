@@ -7,21 +7,31 @@ import { BookLinkComponent } from './book-link.component';
 import { BookRoutingModule } from './book-routing.module';
 import { LibraryService } from './library.service';
 
+import { TradeModalComponent } from '../trades/trade-modal.component';
+import { TradeManagementService } from '../trades/trade-management.service';
+
 import { KeysPipe } from '../assets/keys.pipe';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { AlertModule } from '../alert/alert.module';
 @NgModule({
   imports: [
     BookRoutingModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    AlertModule
   ],
   declarations: [
     BookshelfComponent,
     BookLinkComponent,
     BookInfoComponent,
-    KeysPipe
+    KeysPipe,
+    TradeModalComponent
   ],
   providers: [
-    LibraryService
+    LibraryService,
+    TradeManagementService
   ]
 })
 

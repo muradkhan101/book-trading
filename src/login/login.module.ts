@@ -8,24 +8,22 @@ import { UserManagementService } from '../user/user-management.service';
 import { RegistrationFormComponent } from './registration-form.component';
 import { UserAuthenticationService } from '../global_services/user-authentication.service';
 
-import { AlertService } from '../alert/alert.service';
-import { AlertComponent } from '../alert/alert.component';
+import { AlertModule } from '../alert/alert.module';
 
 @NgModule({
   imports : [
     LoginRoutingModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AlertModule
   ],
   declarations : [
     LoginFormComponent,
-    RegistrationFormComponent,
-    AlertComponent
+    RegistrationFormComponent
   ],
   providers : [
     UserAuthenticationService,
-    UserManagementService,
-    AlertService
+    UserManagementService
   ]
 })
 
