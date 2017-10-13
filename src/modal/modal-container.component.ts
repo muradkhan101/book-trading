@@ -1,12 +1,13 @@
-import { Component, Input, AfterViewInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ComponentFactoryResolver, OnDestroy } from '@angular/core';
 
+import { ModalContentService } from './modal-content.service';
 import { ModalDirective } from './modal-directive';
 import { ModalContent } from './modal-content';
-
+import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'modal',
   template: `
-  <div ngClass="modal fade" id="trade-modal">
+  <div ngClass="modal fade" id="main-modal">
     <div ngClass="modal-dialog" role="document">
       <div ngClass="modal-content">
         <ng-template modal-content></ng-template>
@@ -17,13 +18,13 @@ import { ModalContent } from './modal-content';
 })
 
 export class ModalContainerComponent {
-  @Input() content : ModalContent;
+  subscription : Subscription<ModalContent>;
   @ViewChild(ModalDirective) modalContent: ModalDirective;
 
-  constructor(private cfr : ComponentFactoryResolver) {}
+  constructor(private cfr : ComponentFactoryResolver, public modalService : ModalContentService) {}
 
   ngAfterViewInit() {
-    this.loadComponent(this.content);
+    this.subscription = this.modalService.getContent().subscribe(content => this.loadComponent(content));
   }
 
   loadComponent(content : ModalContent) {
@@ -34,4 +35,5 @@ export class ModalContainerComponent {
     let componentRef = viewContainerRef.createComponent(componentFactory);
     (<ModalComponent>componentRef.instance).data = content.data;
   }
+  ngOnDestroy() { this.subscription.unsubscribe(); }
 }

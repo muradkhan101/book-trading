@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from '../alert/alert.service';
-import { TradeManagementService } from './trade-management.service';
+import { TradeManagementService } from '../trades/trade-management.service';
 import { KeysPipe } from '../assets/keys.pipe';
 
 Component({
