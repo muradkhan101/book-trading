@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from '../alert/alert.service';
 import { TradeManagementService } from './trade-management.service';
 import { Book } from '../books/book';
+import { LibraryService } from '../books/library.service';
+import { KeysPipe } from '../assets/keys.pipe';
 
 @Component({
   selector : 'trade-modal',
@@ -22,8 +24,10 @@ import { Book } from '../books/book';
             <div ngClass="form-group">
               <label ngClass="col-form-label">Trade This: </label>
               <select ngClass="custom-select" formControlName="offerBook">
-                <option *ngIf="preSelectedBook" selected disabled></option>
-                <option *ngIf="!preSelectedBook"
+                <option *ngIf="preSelectedBook" value="books[preSelectedBook].uuid" selected disabled>{{books[preSelectedBook].title}}</option>
+                <ng-container *ngIf="!preSelectedBook">
+                  <option *ngFor="let b of (books | keys)" ngValue="b.uuid">{{b.title}}</option>
+                </ng-container>
               </select>
             </div>
             <div ngClass="form-group">
@@ -48,11 +52,13 @@ import { Book } from '../books/book';
 export class TradeModalComponent {
   tradeForm : FormGroup;
   formData;
+  books;
   @Input() preSelectedBook : string;
-  @Input() books : Book[];
+
   constructor(private fb : FormBuilder,
               private alert : AlertService,
-              private trades : TradeManagementService
+              private trades : TradeManagementService,
+              private library : LibraryService
               ) {}
   createForm() {
     this.tradeForm = this.fb.group({
@@ -62,6 +68,8 @@ export class TradeModalComponent {
     })
   }
   ngOnInit() {
+    console.log(this.preSelectedBook);
+    this.library.getBooks('main').subscribe(b => this.books = b);
     this.createForm();
     this.tradeForm.valueChanges.subscribe(value => this.formData = value);
   }
