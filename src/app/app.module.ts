@@ -17,6 +17,9 @@ import { AuthGuard } from '../global_services/auth-guard.service';
 
 import { HttpModule } from '@angular/http';
 
+import { ModalModule } from '../modal/modal.module';
+import { DirectivesModule } from '../directives/directives.module';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { HttpModule } from '@angular/http';
     BooksModule, // Order of import matters here, load base routes last since routes take precedence by ordering
     LoginModule,
     AppRoutingModule,
-    HttpModule
+    HttpModule,
+    ModalModule,
+    DirectivesModule // Have to put things in module to use them in multiple modules
   ],
   providers: [
     UserAuthenticationService,

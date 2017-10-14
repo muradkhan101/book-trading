@@ -1,7 +1,8 @@
 import { Component, AfterViewInit, ViewChild, ComponentFactoryResolver, OnDestroy } from '@angular/core';
 
 import { ModalContentService } from './modal-content.service';
-import { ModalDirective } from './modal-directive';
+import { ModalComponent } from './modal.component';
+import { ModalDirective } from './modal.directive';
 import { ModalContent } from './modal-content';
 import { Subscription } from 'rxjs/Subscription';
 @Component({
@@ -18,7 +19,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 
 export class ModalContainerComponent {
-  subscription : Subscription<ModalContent>;
+  subscription : Subscription;
   @ViewChild(ModalDirective) modalContent: ModalDirective;
 
   constructor(private cfr : ComponentFactoryResolver, public modalService : ModalContentService) {}

@@ -25,6 +25,7 @@ import { RouterModule } from '@angular/router';
       </div>
     </div>
   </div>
+  <modal></modal>
   `,
   styles: ['.no-padding {padding-left: 0; padding-right: 0;}']
 })

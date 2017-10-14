@@ -4,23 +4,27 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { ModalContentService } from './modal-content.service';
 import { ModalContainerComponent } from './modal-container.component';
-import { TradeFromComponent } from './trade-form.component';
-import { ModalComponent } from './modal.component';
+import { TradeFormComponent } from '../trades/trade-form.component';
 import { ModalDirective } from './modal.directive';
 
 import { AlertModule } from '../alert/alert.module';
+import { DirectivesModule } from '../directives/directives.module';
 
 @NgModule({
   imports: [
-    CommoneModule,
+    CommonModule,
     ReactiveFormsModule,
-    AlertModule
+    AlertModule,
+    DirectivesModule
   ],
   declarations : [
     ModalContainerComponent,
-    ModalComponent,
     ModalDirective,
-    TradeFromComponent
+    TradeFormComponent
   ],
-  providers : [ ModalContentService ]
+  providers : [ ModalContentService ],
+  exports : [ ModalContainerComponent ],
+  entryComponents : [ TradeFormComponent ]
 })
+
+export class ModalModule {}

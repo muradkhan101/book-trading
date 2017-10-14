@@ -4,7 +4,6 @@ import { AlertService } from '../alert/alert.service';
 import { TradeManagementService } from './trade-management.service';
 import { Book } from '../books/book';
 import { LibraryService } from '../books/library.service';
-import { KeysPipe } from '../assets/keys.pipe';
 
 @Component({
   selector : 'trade-modal',

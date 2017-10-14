@@ -13,16 +13,18 @@ import { slideInDownAnimation } from '../app/animations';
 import { Book } from './book';
 import { LibraryService } from './library.service';
 
+import { ModalContentService } from '../modal/modal-content.service';
+import { TradeFormComponent } from '../trades/trade-form.component';
+
 @Component({
   selector: 'book-info',
   template: `
-  <trade-modal *ngIf="book$ | async as book" [preSelectedBook]="book.uuid"></trade-modal>
   <div ngClass='book-display container' *ngIf="book$ | async as book">
     <div ngClass='row justify-content-center'>
       <div ngClass='col-3'>
         <img [src]="book.image" ngClass='book-cover'>
-        <button ngClass="btn btn-primary mt-2" (click)="addToCollection(book.uuid)" data-toggle="modal" data-target="#trade-modal">Add to Collection</button>
-        <button ngClass="btn btn-alt mt-2 mb-2" (click)="showModal()">Trade This</button>
+        <button ngClass="btn btn-primary mt-2" (click)="addToCollection(book.uuid)">Add to Collection</button>
+        <button ngClass="btn btn-alt mt-2 mb-2" (click)="showModal()" data-toggle="modal" data-target="#main-modal">Trade This</button>
       </div>
       <div ngClass='col'>
         <div ngClass="card bg-light">
@@ -52,7 +54,8 @@ export class BookInfoComponent implements OnInit {
   constructor (
     private route: ActivatedRoute,
     private router: Router,
-    private libraryService : LibraryService
+    private libraryService : LibraryService,
+    public modalService : ModalContentService
   ) {}
 
   ngOnInit() {
@@ -62,5 +65,16 @@ export class BookInfoComponent implements OnInit {
       })
   }
   addToCollection(uuid : string) {console.log(uuid);}
-  showModal() {}
+  showModal() {
+    this.libraryService.getBooks('main')
+      .subscribe( (books) => {
+        this.book$.subscribe( data => {
+          let modalData = {
+            books: books,
+            preSelectedBook: data.uuid
+          };
+          this.modalService.setContent(TradeFormComponent, modalData);
+        })
+      })
+  }
 }

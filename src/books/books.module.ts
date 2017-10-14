@@ -10,24 +10,24 @@ import { LibraryService } from './library.service';
 import { TradeModalComponent } from '../trades/trade-modal.component';
 import { TradeManagementService } from '../trades/trade-management.service';
 
-import { KeysPipe } from '../assets/keys.pipe';
+import { DirectivesModule } from '../directives/directives.module';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AlertModule } from '../alert/alert.module';
+
 @NgModule({
   imports: [
     BookRoutingModule,
     CommonModule,
     ReactiveFormsModule,
-    AlertModule
+    AlertModule,
+    DirectivesModule
   ],
   declarations: [
     BookshelfComponent,
     BookLinkComponent,
-    BookInfoComponent,
-    KeysPipe,
-    TradeModalComponent
+    BookInfoComponent
   ],
   providers: [
     LibraryService,
