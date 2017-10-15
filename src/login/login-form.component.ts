@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserAuthenticationService } from '../global_services/user-authentication.service';
 import { AlertService } from '../alert/alert.service';
+
+import { slideInDownAnimation } from '../app/animations';
+
 @Component({
   selector: 'login-page',
   template: `
@@ -32,13 +35,19 @@ import { AlertService } from '../alert/alert.service';
       </div>
     </div>
   </div>
-  `
+  `,
+  animations: [slideInDownAnimation]
 })
 
 export class LoginFormComponent {
   loginForm : FormGroup;
   formData;
   message;
+
+  @HostBinding('@routeAnimation') routeAnimation = true;
+  @HostBinding('style.display') display = 'block';
+  // @HostBinding('style.position') position = 'absolute';
+
   // Remember to declare these injections as private or no access with this
   constructor(private fb : FormBuilder, private userAuth : UserAuthenticationService, private alert : AlertService) { }
 

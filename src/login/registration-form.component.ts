@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { matchInput } from '../assets/password-validation';
 import { UserManagementService } from '../user/user-management.service';
 import { AlertService } from '../alert/alert.service';
+
+import { slideInDownAnimation } from '../app/animations';
 
 @Component({
   selector: 'registration-form',
@@ -43,12 +45,17 @@ import { AlertService } from '../alert/alert.service';
       </div>
     </div>
   </div>
-  `
+  `,
+  animations: [slideInDownAnimation]
 })
 
 export class RegistrationFormComponent {
   registrationForm : FormGroup;
   formData : Object;
+
+  @HostBinding('@routeAnimation') routeAnimation = true;
+  @HostBinding('style.display') display = 'block';
+  // @HostBinding('style.position') position = 'absolute';
 
   constructor(private fb : FormBuilder, private manageUser : UserManagementService ) {this.createForm();}
 

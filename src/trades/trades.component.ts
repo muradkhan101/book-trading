@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { TradeManagementService } from './trade-management.service';
 import { Trade } from './trade';
 import { AlertService } from '../alert/alert.service';
+
+import { slideInDownAnimation } from '../app/animations';
 
 @Component({
   selector: 'trades',
@@ -12,13 +14,19 @@ import { AlertService } from '../alert/alert.service';
         <trade-view *ngFor="let t of trades" [trade]="t"></trade-view>
       </div>
     </div>
-  `
+  `,
+  animations: [slideInDownAnimation]
 })
 
 export class TradesComponent {
   @Input() title : string;
   @Input() bookId : string;
   trades : Trade[];
+
+  @HostBinding('@routeAnimation') routeAnimation = true;
+  @HostBinding('style.display') display = 'block';
+  @HostBinding('style.position') position = 'absolute';
+  
   constructor(
     public manageTrade : TradeManagementService,
     public alert : AlertService
