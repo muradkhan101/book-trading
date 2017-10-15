@@ -52,12 +52,12 @@ export class LoginFormComponent {
   ngOnInit() {
     this.createForm();
     this.loginForm.valueChanges.subscribe(value => { this.formData = value; })
+    this.alert.retrieveMessage()
+      .subscribe(message => this.message = message);
   }
 
   onSubmit() {
     this.userAuth.login(this.formData);
-    this.alert.retrieveMessage()
-      .subscribe(message => this.message = message);
   }
 
 }

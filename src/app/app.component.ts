@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-main',
   template: `
   <div ngClass='container-fluid no-padding'>
-    <div ngClass='full-height row align-items-center'>
+    <div ngClass='full-height row justify-content-center'>
       <div ngClass='col-md-3'>
         <nav ngClass='navbar navbar-toggleable-md navbar-expand-md navbar-light bg-light'>
           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,14 +20,17 @@ import { RouterModule } from '@angular/router';
           </div>
         </nav>
       </div>
-      <div ngClass='col'>
+      <div ngClass='col mt-5'>
         <router-outlet></router-outlet>
       </div>
     </div>
   </div>
   <modal></modal>
   `,
-  styles: ['.no-padding {padding-left: 0; padding-right: 0;}']
+  styles: [
+    '.no-padding {padding-left: 0; padding-right: 0;}',
+    '.navbar {position: sticky; top: 40vh;}'
+  ]
 })
 
 export class AppComponent {}

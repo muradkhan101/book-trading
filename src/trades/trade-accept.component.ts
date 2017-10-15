@@ -6,31 +6,28 @@ import { TradeManagementService } from '../trades/trade-management.service';
 @Component({
   template: `
   <div ngClass="modal-header">
-    <h2>Add a trade</h2>
+    <h2>Complete a Trade</h2>
     <button ngClass="close" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div ngClass="modal-body">
-    <form [formGroup]="tradeForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="tradeAcceptForm" (ngSubmit)="onSubmit()">
     <alert></alert>
       <div ngClass="form-group">
-        <label ngClass="col-form-label">Trade This: </label>
+        <label ngClass="col-form-label">Trading For: </label>
         <select ngClass="custom-select" formControlName="offerBook">
-          <option *ngIf="data.preSelectedBook" [ngValue]="data.books[data.preSelectedBook]._id" selected>{{data.books[data.preSelectedBook].title}}</option>
-          <ng-container *ngIf="!data.preSelectedBook">
-            <option *ngFor="let b of (data.books | keys)" [ngValue]="b._id">{{b.title}}</option>
-          </ng-container>
+          <option selected [ngValue]="data.trade.offerBook._id">{{data.trade.offerBook.title}}</option>
         </select>
       </div>
       <div ngClass="form-group">
-        <label ngClass="col-form-label">Want something?</label>
+        <label ngClass="col-form-label">Your offer:</label>
         <select ngClass="custom-select" formControlName="wantBook">
-          <option selected ngValue="null">Suprise me!</option>
+          <option *ngIf="data.trade.wantBook" selected [ngValue]="data.trade.wantBook._id">{{data.trade.wantBook.title}}</option>
           <option *ngFor="let b of (data.books | keys)" [ngValue]="b._id">{{b.title}}</option>
         </select>
       </div>
-      <button type="submit" ngClass="btn btn-primary" [disabled]="!tradeForm.valid">Submit Trade</button>
+      <button type="submit" ngClass="btn btn-primary" [disabled]="!tradeAcceptForm.valid">Accept Trade</button>
     </form>
   </div>
   <div ngClass="modal-footer">
@@ -39,10 +36,10 @@ import { TradeManagementService } from '../trades/trade-management.service';
   `
 })
 
-export class TradeFormComponent {
+export class TradeAcceptComponent {
   @Input() data : any;
 
-  tradeForm : FormGroup;
+  tradeAcceptForm : FormGroup;
   formData;
 
   constructor(private fb : FormBuilder,
@@ -50,20 +47,23 @@ export class TradeFormComponent {
               private trades : TradeManagementService
               ) {}
   createForm() {
-    this.tradeForm = this.fb.group({
-      offerBook : [ this.data.books[this.data.preSelectedBook]._id || '', Validators.required ],
-      wantBook  : [ '' ],
-      from      : [ JSON.parse(localStorage.getItem('currentUser'))._id, Validators.required ]
+    this.tradeAcceptForm = this.fb.group({
+      offerBook : [ this.data.trade.offerBook._id || '', Validators.required ],
+      wantBook  : [ this.data.trade.wantBook._id || '', Validators.required ],
+      with      : [ JSON.parse(localStorage.getItem('currentUser'))._id || '', Validators.required ],
+      status    : ["Closed"],
+      uuid      : [this.data.trade.uuid || '']
     })
   }
   ngOnInit() {
+    console.log(this.data);
+    if (!this.trades.isAuthenticated()) {this.trades.redirect('/login')}
     this.createForm();
-    this.tradeForm.valueChanges.subscribe(value => this.formData = value);
+    this.tradeAcceptForm.valueChanges.subscribe(value => this.formData = value);
   }
 
   onSubmit() {
     let data = Object.assign({}, this.formData);
-    if (!data.wantBook) delete data['wantBook'];
-    this.trades.create(data);
+    this.trades.update(data);
   }
 }

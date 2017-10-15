@@ -18,7 +18,11 @@ export class UserManagementService extends UserAuthenticationService {
 
   create(userInfo) {
     return this.http.post(`${Constants.baseURL}/user`, userInfo, this.jwt())
-            .subscribe((response : Response) => response.json())
+            .subscribe((response : Response) => {
+              this.router.navigate(['user/profile']);
+              this.alert.success('Yay! Your account was created!', true);
+              return response.json();
+            })
   }
 
   update(userInfo) {

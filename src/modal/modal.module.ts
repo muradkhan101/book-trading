@@ -10,6 +10,8 @@ import { ModalDirective } from './modal.directive';
 import { AlertModule } from '../alert/alert.module';
 import { DirectivesModule } from '../directives/directives.module';
 
+import { TradeAcceptComponent } from '../trades/trade-accept.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -20,11 +22,12 @@ import { DirectivesModule } from '../directives/directives.module';
   declarations : [
     ModalContainerComponent,
     ModalDirective,
-    TradeFormComponent
+    TradeFormComponent,
+    TradeAcceptComponent
   ],
   providers : [ ModalContentService ],
   exports : [ ModalContainerComponent ],
-  entryComponents : [ TradeFormComponent ]
+  entryComponents : [ TradeFormComponent, TradeAcceptComponent ]
 })
 
 export class ModalModule {}

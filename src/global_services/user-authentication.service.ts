@@ -44,14 +44,18 @@ export class UserAuthenticationService {
 
   isAuthenticated() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser && currentUser.token) {return true;}
+    if (currentUser && currentUser.token) {return currentUser;}
     return false;
   }
-
+  redirect(url: string) {
+    UserAuthenticationService.redirectUrl = this.router.url;
+    this.alert.error('You must login first', true);
+    this.router.navigate([url]);
+  }
   jwt() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser && currentUser.token) {
-        let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token, 'Content-Type': 'application/json, */*'});
+        let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token});
         return new RequestOptions({ headers: headers });
     }
   }

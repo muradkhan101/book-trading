@@ -19,7 +19,7 @@ import { HttpModule } from '@angular/http';
 
 import { ModalModule } from '../modal/modal.module';
 import { DirectivesModule } from '../directives/directives.module';
-
+import { TradesModule } from '../trades/trades.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +36,7 @@ import { DirectivesModule } from '../directives/directives.module';
     AppRoutingModule,
     HttpModule,
     ModalModule,
+    TradesModule,
     DirectivesModule // Have to put things in module to use them in multiple modules
   ],
   providers: [

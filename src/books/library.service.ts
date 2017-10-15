@@ -14,10 +14,10 @@ export class LibraryService {
     if (this.bookList[list || 'main']) return Observable.create( obs => {
       obs.next(this.bookList[list || 'main']);
     })
-    return this.http.get(`${Constants.baseURL}/books/${l}`, Constants.headers)
+    return this.http.get(`${Constants.baseURL}/books`, Constants.headers)
       .map((response : Response) => {
         this.bookList[list || 'main'] = {};
-        response.json().map( e => this.bookList[list || 'main'][e.uuid] = new Book(e));
+        if (response.json()) response.json().map( e => this.bookList[list || 'main'][e.uuid] = new Book(e));
         return this.bookList[list || 'main'];
       })
   }

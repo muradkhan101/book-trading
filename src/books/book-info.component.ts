@@ -12,29 +12,33 @@ import { slideInDownAnimation } from '../app/animations';
 
 import { Book } from './book';
 import { LibraryService } from './library.service';
+import { BookManagementService } from './book-management.service';
 
 import { ModalContentService } from '../modal/modal-content.service';
+import { AlertService } from '../alert/alert.service';
 import { TradeFormComponent } from '../trades/trade-form.component';
 
 @Component({
   selector: 'book-info',
   template: `
   <div ngClass='book-display container' *ngIf="book$ | async as book">
+    <alert></alert>
     <div ngClass='row justify-content-center'>
       <div ngClass='col-3'>
         <img [src]="book.image" ngClass='book-cover'>
-        <button ngClass="btn btn-primary mt-2" (click)="addToCollection(book.uuid)">Add to Collection</button>
+        <button *ngIf="!hasBook" ngClass="btn btn-primary mt-2" (click)="addToCollection(book._id)">Add to Collection</button>
+        <button *ngIf="hasBook" ngClass="btn btn-danger mt-2" (click)="removeFromCollection(book._id)">Remove from Collection</button>
         <button ngClass="btn btn-alt mt-2 mb-2" (click)="showModal()" data-toggle="modal" data-target="#main-modal">Trade This</button>
       </div>
       <div ngClass='col'>
-        <div ngClass="card bg-light">
+        <div>
           <h1 ngClass='card-title'>{{book.title}}</h1>
           <p ngClass='card-text'>{{book.description}}</p>
         </div>
       </div>
     </div>
     <div ngClass='row'>
-      <bookshelf title="Trade For This" [list]="book.uuid+'/trades'"></bookshelf>
+      <trades title="Trade For This" [bookId]="book._id"></trades>
     </div>
   </div>
 `,
@@ -46,6 +50,8 @@ animations: [slideInDownAnimation]
 
 export class BookInfoComponent implements OnInit {
   book$ : Observable<Book>;
+  message;
+  hasBook : boolean;
 
   @HostBinding('@routeAnimation') routeAnimation = true;
   @HostBinding('style.display') display = 'block';
@@ -55,7 +61,9 @@ export class BookInfoComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private libraryService : LibraryService,
-    public modalService : ModalContentService
+    private bookManagement : BookManagementService,
+    public modalService : ModalContentService,
+    public alert : AlertService
   ) {}
 
   ngOnInit() {
@@ -63,8 +71,36 @@ export class BookInfoComponent implements OnInit {
       .switchMap((params : ParamMap) => {
         return (this.book$ = this.libraryService.getBook(params.get('uuid')))
       })
+    this.book$.subscribe(b => this.hasBook = this.userHasBook(b._id));
+    this.alert.retrieveMessage()
+      .subscribe(message => this.message = message);
   }
-  addToCollection(uuid : string) {console.log(uuid);}
+  // This is bad book management. Should call API to get book list each time.
+  // Or account for removal of book and addition of book situation
+  // API call is more authoritative since users can't modify data themselves
+  userHasBook(_id : string) {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) return false;
+    return (currentUser.books.indexOf(_id) !== -1);
+  }
+
+  addToCollection(_id : string) {
+    this.bookManagement.addToCollection(_id);
+    this.hasBook = !this.hasBook;
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    currentUser.books.push(_id);
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+   }
+  removeFromCollection(_id : string) {
+    this.bookManagement.removeFromCollection(_id);
+    this.hasBook = !this.hasBook;
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    let bookIndex = currentUser.books.indexOf(_id);
+    let books = currentUser.books.slice(0, bookIndex).concat(currentUser.books.slice(bookIndex+1));
+    currentUser.books = books;
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+  }
+
   showModal() {
     this.libraryService.getBooks('main')
       .subscribe( (books) => {
