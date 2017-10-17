@@ -47,16 +47,17 @@ export class TradeAcceptComponent {
               private trades : TradeManagementService
               ) {}
   createForm() {
-    this.tradeAcceptForm = this.fb.group({
-      offerBook : [ this.data.trade.offerBook._id || '', Validators.required ],
-      wantBook  : [ this.data.trade.wantBook._id || '', Validators.required ],
-      with      : [ JSON.parse(localStorage.getItem('currentUser'))._id || '', Validators.required ],
-      status    : ["Closed"],
-      uuid      : [this.data.trade.uuid || '']
-    })
+    try {
+      this.tradeAcceptForm = this.fb.group({
+        offerBook : [ this.data.trade.offerBook._id || '', Validators.required ],
+        wantBook  : [ this.data.trade.wantBook._id || '', Validators.required ],
+        with      : [ JSON.parse(localStorage.getItem('currentUser'))._id || '', Validators.required ],
+        status    : ["Closed"],
+        uuid      : [this.data.trade.uuid || '']
+      })
+    } catch(e) {console.log(e);}
   }
   ngOnInit() {
-    console.log(this.data);
     if (!this.trades.isAuthenticated()) {this.trades.redirect('/login')}
     this.createForm();
     this.tradeAcceptForm.valueChanges.subscribe(value => this.formData = value);

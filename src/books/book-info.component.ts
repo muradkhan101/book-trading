@@ -102,6 +102,7 @@ export class BookInfoComponent implements OnInit {
   }
 
   showModal() {
+    if (!this.bookManagement.isAuthenticated()) this.bookManagement.redirect('login');
     this.libraryService.getBooks('main')
       .subscribe( (books) => {
         this.book$.subscribe( data => {

@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.3.
 
+## Back-End Server
+
+The back-end API for this app was written with Express and MongoDB. You can view the code [here](https://github.com/muradkhan101/book-trade-mongo)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
