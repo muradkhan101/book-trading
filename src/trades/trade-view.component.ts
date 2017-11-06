@@ -4,6 +4,7 @@ import { Trade } from './trade';
 import { ModalContentService } from '../modal/modal-content.service';
 import { TradeAcceptComponent } from '../trades/trade-accept.component';
 import { LibraryService } from '../books/library.service';
+import { UserAuthenticationService } from '../global_services/user-authentication.service';
 
 @Component({
   selector: 'trade-view',
@@ -21,7 +22,7 @@ import { LibraryService } from '../books/library.service';
     </div>
     <div ngClass="row justify-content-center">
       <div ngClass='col-12 col-md-6'>
-        <button ngClass="btn btn-primary mt-2 mb-2" (click)="showModal()" data-toggle="modal" data-target="#main-modal">Offer Trade</button>
+        <button ngClass="btn btn-primary mt-2 mb-2" (click)="showModal()" data-toggle="modal">Offer Trade</button>
       </div>
     </div>
   </div>
@@ -30,9 +31,15 @@ import { LibraryService } from '../books/library.service';
 
 export class TradeViewComponent {
   @Input() trade : Trade;
-  constructor(public modalService : ModalContentService, public libraryService : LibraryService) {}
+  constructor(
+    public modalService : ModalContentService,
+    public libraryService : LibraryService,
+    public userAuthentication : UserAuthenticationService
+  ) {}
 
   showModal() {
+    if (!this.userAuthentication.isAuthenticated()) return this.userAuthentication.redirect('login');
+    eval('$("#main-modal").modal("show")');
     this.libraryService.getBooks('')
       .subscribe( (books) => {
         let data = {

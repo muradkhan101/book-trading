@@ -50,7 +50,7 @@ export class UserAuthenticationService {
   redirect(url: string) {
     UserAuthenticationService.redirectUrl = this.router.url;
     this.alert.error('You must login first', true);
-    this.router.navigate([url]);
+    return this.router.navigate([url]);
   }
   jwt() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));

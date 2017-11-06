@@ -24,11 +24,11 @@ import { TradeFormComponent } from '../trades/trade-form.component';
   <div ngClass='book-display container' *ngIf="book$ | async as book">
     <alert></alert>
     <div ngClass='row justify-content-center'>
-      <div ngClass='col-3'>
+      <div ngClass='col-4 col-md-3'>
         <img [src]="book.image" ngClass='book-cover'>
         <button *ngIf="!hasBook" ngClass="btn btn-primary mt-2" (click)="addToCollection(book._id)">Add to Collection</button>
         <button *ngIf="hasBook" ngClass="btn btn-danger mt-2" (click)="removeFromCollection(book._id)">Remove from Collection</button>
-        <button ngClass="btn btn-alt mt-2 mb-2" (click)="showModal()" data-toggle="modal" data-target="#main-modal">Trade This</button>
+        <button ngClass="btn btn-secondary mt-2 mb-2" (click)="showModal()" data-toggle="modal">Trade This</button>
       </div>
       <div ngClass='col'>
         <div>
@@ -102,7 +102,8 @@ export class BookInfoComponent implements OnInit {
   }
 
   showModal() {
-    if (!this.bookManagement.isAuthenticated()) this.bookManagement.redirect('login');
+    if (!this.bookManagement.isAuthenticated()) return this.bookManagement.redirect('login');
+    eval('$("#main-modal").modal("show")');
     this.libraryService.getBooks('main')
       .subscribe( (books) => {
         this.book$.subscribe( data => {
