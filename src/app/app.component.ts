@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
             <span class="navbar-toggler-icon"></span>
           </button>
           <div ngClass='collapse navbar-collapse flex-column mr-auto ml-auto' id='main-navbar'>
-            <a ngClass='nav-item nav-link'routerLink='/books' routerLinkActive='active'>Books</a>
+            <a ngClass='nav-item nav-link' routerLink='/books' routerLinkActive='active'>Books</a>
             <a ngClass='nav-item nav-link' routerLink='/trades' routerLinkActive='active'>Trades</a>
             <a ngClass='nav-item nav-link' routerLink='/user/profile' routerLinkActive='active'>My Profile</a>
           </div>

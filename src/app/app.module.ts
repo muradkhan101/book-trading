@@ -20,12 +20,15 @@ import { HttpModule } from '@angular/http';
 import { ModalModule } from '../modal/modal.module';
 import { DirectivesModule } from '../directives/directives.module';
 import { TradesModule } from '../trades/trades.module';
+import { TradeModalComponent } from '../trades/trade-modal.component'
+import { AlertModule } from '../alert/alert.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserInfoComponent,
-    AppLandingComponent
+    AppLandingComponent,
+    TradeModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import { TradesModule } from '../trades/trades.module';
     HttpModule,
     ModalModule,
     TradesModule,
+    AlertModule,
     DirectivesModule // Have to put things in module to use them in multiple modules
   ],
   providers: [

@@ -12,7 +12,7 @@ const appRoutes: Routes = [
     component: UserInfoComponent,
     canActivate : [AuthGuard]
   },
-  {path: '', component: AppLandingComponent, pathMatch: 'full'}
+  {path: 'home', component: AppLandingComponent, pathMatch: 'full'}
 ]
 
 @NgModule({

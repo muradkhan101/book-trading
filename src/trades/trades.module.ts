@@ -15,7 +15,7 @@ import { AlertModule } from '../alert/alert.module';
   ],
   declarations: [
     TradesComponent,
-    TradeViewComponent
+    TradeViewComponent,
   ],
   providers: [
     TradeManagementService
