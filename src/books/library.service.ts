@@ -23,6 +23,7 @@ export class LibraryService {
   }
   getBook(uuid : string) : Observable<Book> {
     if (!this.bookList['main']) return this.getBooks('').map(books => books[uuid]);
+    // Bad form again, observables for singleton is bad, I think?
     return Observable.create( obs => obs.next(this.bookList['main'][uuid]));
   }
 }

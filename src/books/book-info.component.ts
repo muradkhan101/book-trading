@@ -105,6 +105,7 @@ export class BookInfoComponent implements OnInit {
     if (!this.bookManagement.isAuthenticated()) return this.bookManagement.redirect('login');
     eval('$("#main-modal").modal("show")');
     this.libraryService.getBooks('main')
+    // This is bad form, memory leak with dangling subscriptions
       .subscribe( (books) => {
         this.book$.subscribe( data => {
           let modalData = {
