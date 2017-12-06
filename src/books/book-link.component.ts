@@ -6,7 +6,7 @@ import { Book } from './book';
 @Component({
   selector: 'book-link',
   template: `
-  <div ngClass='col-6 col-md-3 mt-2'>
+  <div class='col-6 col-md-3 mt-2'>
     <a [routerLink]="['/books', book.uuid]">
       <img src="{{book.image}}" alt="{{book.title}}">
     </a>

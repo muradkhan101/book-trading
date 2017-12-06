@@ -9,8 +9,8 @@ import { slideInDownAnimation } from '../app/animations';
 @Component({
   selector: 'bookshelf',
   template: `
-    <div ngClass='container-fluid'>
-      <h1 ngClass='card-title'> {{title || "All Books"}} </h1>
+    <div class='container-fluid'>
+      <h1 class='card-title'> {{title || "All Books"}} </h1>
       <div *ngIf="books" ngClass='row'>
         <book-link *ngFor="let b of (books | keys)" [book]="b"></book-link>
       </div>
@@ -27,7 +27,7 @@ export class BookshelfComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
   @HostBinding('style.display') display = 'block';
   @HostBinding('style.position') position = 'absolute';
-  
+
   constructor(private libraryService : LibraryService) {}
   ngOnInit() : void {
     this.libraryService.getBooks(this.list).subscribe(b => this.books = b)
